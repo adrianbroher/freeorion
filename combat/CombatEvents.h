@@ -11,7 +11,7 @@
 #include <boost/serialization/export.hpp>
 
 #include "../util/Export.h"
-#include "../universe/EnumsFwd.h"
+#include "../universe/Enums.h"
 
 #include "CombatEvent.h"
 

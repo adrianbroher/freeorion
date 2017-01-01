@@ -13,7 +13,7 @@
 #include <boost/serialization/access.hpp>
 #include <boost/signals2/signal.hpp>
 #include <boost/thread/shared_mutex.hpp>
-#include "EnumsFwd.h"
+#include "Enums.h"
 #include "ObjectMap.h"
 #include "UniverseObject.h"
 #include "../util/Export.h"

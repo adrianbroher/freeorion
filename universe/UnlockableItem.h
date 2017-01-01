@@ -7,15 +7,16 @@
 
 
 /** types of items that can be unlocked for empires */
-GG_ENUM(UnlockableItemType,
-    INVALID_UNLOCKABLE_ITEM_TYPE = -1,
-    UIT_BUILDING,               ///< a kind of Building
-    UIT_SHIP_PART,              ///< a kind of ship part (which are placed into hulls to make designs)
-    UIT_SHIP_HULL,              ///< a ship hull (into which parts are placed)
-    UIT_SHIP_DESIGN,            ///< a complete ship design
-    UIT_TECH,                   ///< a technology
-    UIT_POLICY,                 ///< an imperial policy
-    NUM_UNLOCKABLE_ITEM_TYPES   ///< keep last, the number of types of unlockable item
+GG_ENUM(
+    (UnlockableItemType),
+    ((INVALID_UNLOCKABLE_ITEM_TYPE, "INVALID_UNLOCKABLE_ITEM_TYPE", -1))
+    ((UIT_BUILDING))               ///< a kind of Building
+    ((UIT_SHIP_PART))              ///< a kind of ship part (which are placed into hulls to make designs)
+    ((UIT_SHIP_HULL))              ///< a ship hull (into which parts are placed)
+    ((UIT_SHIP_DESIGN))            ///< a complete ship design
+    ((UIT_TECH))                   ///< a technology
+    ((UIT_POLICY)),                ///< an imperial policy
+    ((NUM_UNLOCKABLE_ITEM_TYPES))  ///< keep last, the number of types of unlockable item
 )
 
 

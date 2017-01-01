@@ -1,7 +1,7 @@
 #ifndef _MultiplayerCommon_h_
 #define _MultiplayerCommon_h_
 
-#include "../universe/EnumsFwd.h"
+#include "../universe/Enums.h"
 #include "../network/Networking.h"
 #include "Export.h"
 #include "OptionsDB.h"
@@ -12,6 +12,7 @@
 #include <GG/ClrConstants.h>
 
 #include <list>
+#include <map>
 #include <set>
 #include <vector>
 #include <map>

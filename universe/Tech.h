@@ -12,7 +12,7 @@
 #include <boost/multi_index_container.hpp>
 #include <boost/optional/optional.hpp>
 #include <GG/Clr.h>
-#include "EnumsFwd.h"
+#include "Enums.h"
 #include "../util/Export.h"
 #include "../util/Pending.h"
 

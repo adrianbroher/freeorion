@@ -4,8 +4,8 @@
 #include "EnumParser.h"
 #include "MovableEnvelope.h"
 
+#include "../universe/Enums.h"
 #include "../universe/ValueRefs.h"
-#include "../universe/EnumsFwd.h"
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>

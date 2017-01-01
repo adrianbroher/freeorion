@@ -4,7 +4,7 @@
 #include <GG/GGFwd.h>
 #include <GG/BrowseInfoWnd.h>
 
-#include "../universe/EnumsFwd.h"
+#include "../universe/Enums.h"
 #include "../util/Export.h"
 
 FO_COMMON_API extern const int ALL_EMPIRES;

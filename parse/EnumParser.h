@@ -4,8 +4,8 @@
 #include "Lexer.h"
 
 #include "ParseImpl.h"
+#include "../universe/Enums.h"
 #include "../universe/ValueRef.h"
-#include "../universe/EnumsFwd.h"
 
 #include <boost/spirit/include/qi.hpp>
 

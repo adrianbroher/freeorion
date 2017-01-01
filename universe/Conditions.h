@@ -8,7 +8,7 @@
 #include "ConditionAll.h"
 #include "ConditionSource.h"
 #include "Condition.h"
-#include "EnumsFwd.h"
+#include "Enums.h"
 #include "../util/CheckSums.h"
 #include "../util/Export.h"
 

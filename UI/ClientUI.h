@@ -1,14 +1,14 @@
 #ifndef _ClientUI_h_
 #define _ClientUI_h_
 
-
+#include <boost/filesystem/path.hpp>
 #include <GG/GGFwd.h>
 
 #include <boost/filesystem/path.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 #include "SaveFileDialog.h"
-#include "../universe/EnumsFwd.h"
+#include "../universe/Enums.h"
 #include "../util/Random.h"
 
 #include <map>

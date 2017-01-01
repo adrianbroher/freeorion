@@ -4,7 +4,7 @@
 
 #include <boost/signals2/signal.hpp>
 #include <boost/serialization/nvp.hpp>
-#include "EnumsFwd.h"
+#include "Enums.h"
 #include "../util/Export.h"
 
 

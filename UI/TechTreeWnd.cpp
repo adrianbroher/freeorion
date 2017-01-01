@@ -29,6 +29,8 @@
 
 #include <algorithm>
 
+#include <boost/algorithm/string/trim.hpp>
+
 namespace {
     const std::string RES_PEDIA_WND_NAME = "research.pedia";
     const std::string RES_CONTROLS_WND_NAME = "research.control";

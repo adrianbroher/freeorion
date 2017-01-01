@@ -11,7 +11,7 @@
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/serialization/nvp.hpp>
-#include "EnumsFwd.h"
+#include "Enums.h"
 #include "../util/Export.h"
 #include "../util/Serialize.h"
 #include "../util/Pending.h"

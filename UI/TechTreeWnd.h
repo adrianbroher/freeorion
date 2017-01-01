@@ -5,7 +5,7 @@
 
 #include <boost/signals2/signal.hpp>
 
-#include "../universe/EnumsFwd.h"
+#include "../universe/Enums.h"
 
 class Tech;
 class EncyclopediaDetailPanel;

@@ -30,170 +30,158 @@
 #ifndef _GG_Enum_h_
 #define _GG_Enum_h_
 
-#include <cstdlib>
 #include <iostream>
-#include <map>
-#include <sstream>
-#include <string>
-#include <climits>
+#include <boost/preprocessor/comparison/equal.hpp>
+#include <boost/preprocessor/control/if.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/transform.hpp>
+#include <boost/preprocessor/stringize.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/tuple/push_back.hpp>
+#include <boost/preprocessor/tuple/size.hpp>
 
-#include <boost/algorithm/string/trim.hpp>
 
-namespace GG {
+/** @brief Implementation detail for GG_ENUM */
+#define GG_DEF_ENUM_VALUE(r, data, elem) \
+    BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_TUPLE_SIZE(elem), 3), \
+        BOOST_PP_TUPLE_ELEM(0, elem) = BOOST_PP_TUPLE_ELEM(2, elem), \
+        BOOST_PP_TUPLE_ELEM(0, elem)),
 
-    #define GG_ENUM_NAME_BUFFER_SIZE 80
+/** @brief Implementation detail for GG_ENUM */
+#define GG_DEF_ENUM(typeName, values) \
+enum \
+BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_TUPLE_SIZE(typeName), 2), \
+    BOOST_PP_TUPLE_ELEM(1, typeName), \
+    BOOST_PP_TUPLE_ELEM(0, typeName)) \
+: int { \
+    BOOST_PP_SEQ_FOR_EACH(GG_DEF_ENUM_VALUE, _, values) \
+};
 
-    /** This class is not meant for public consumption.
-      * Access this class through the functions generated
-      * in the GG_ENUM or GG_CLASS_ENUM macro invocation. */
-    template <typename EnumType>
-    class EnumMap {
-    public:
-        const std::string& operator[](EnumType value) const;
-        EnumType operator[](const std::string& name) const;
+/** @brief Implementation detail for GG_ENUM */
+#define GG_DEF_ENUM_OSTREAM_CASE(r, data, elem) \
+    case BOOST_PP_TUPLE_ELEM(0, elem): \
+        stream << BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_TUPLE_SIZE(elem), 1), \
+                      BOOST_PP_STRINGIZE(BOOST_PP_TUPLE_ELEM(0, elem)), \
+                      BOOST_PP_TUPLE_ELEM(1, elem)); \
+        break;
 
-        void Insert(int& default_value, const std::string& entry);
-        size_t size() const;
+/** @brief Implementation detail for GG_ENUM */
+#define GG_DEF_ENUM_OSTREAM(typeName, values) \
+inline \
+BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_TUPLE_SIZE(typeName), 2), \
+        friend, \
+        BOOST_PP_EMPTY()) \
+std::ostream& operator <<(std::ostream& stream, \
+BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_TUPLE_SIZE(typeName), 2), \
+    BOOST_PP_TUPLE_ELEM(1, typeName), \
+    BOOST_PP_TUPLE_ELEM(0, typeName))& value) \
+{ \
+    switch(value) \
+    { \
+        BOOST_PP_SEQ_FOR_EACH(GG_DEF_ENUM_OSTREAM_CASE, _, values) \
+        default: \
+            stream.setstate(std::ios::failbit); \
+            break; \
+    } \
+ \
+    return stream; \
+}
 
-        static const EnumType BAD_VALUE = (EnumType)INT_MIN;
-    private:
-        std::map<std::string, EnumType> m_name_to_value_map;
-        std::map<EnumType, std::string> m_value_to_name_map;
-    };
+/** @brief Implementation detail for GG_ENUM */
+#define GG_DEF_ENUM_ISTREAM_CASE(r, data, elem) \
+    else if( \
+BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_TUPLE_SIZE(elem), 1), \
+    BOOST_PP_STRINGIZE(BOOST_PP_TUPLE_ELEM(0, elem)), \
+    BOOST_PP_TUPLE_ELEM(1, elem)) == token) \
+        value = BOOST_PP_TUPLE_ELEM(0, elem);
 
-    /** Do not call this function directly.
-      * Instead, rely on the functions generated
-      * by the GG_ENUM or GG_CLASS_ENUM macro invocations. */
-    template <typename EnumType>
-    EnumMap<EnumType>& GetEnumMap() {
-        static EnumMap<EnumType> map;
-        return map;
-    }
-    
-    /** Do not call this function directly.
-      * Instead, rely on the functions generated
-      * by the GG_ENUM or GG_CLASS_ENUM macro invocations. */
-    template <typename EnumType>
-    void BuildEnumMap(EnumMap<EnumType>& map, const std::string& enum_name, const char* comma_separated_names) {
-        std::stringstream name_stream(comma_separated_names);
+/** @brief Implementation detail for GG_ENUM */
+#define GG_DEF_ENUM_ISTREAM(typeName, values) \
+inline \
+BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_TUPLE_SIZE(typeName), 2), \
+        friend, \
+        BOOST_PP_EMPTY()) \
+std::istream& operator >>(std::istream& stream, \
+BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_TUPLE_SIZE(typeName), 2), \
+    BOOST_PP_TUPLE_ELEM(1, typeName), \
+    BOOST_PP_TUPLE_ELEM(0, typeName))& value) \
+{ \
+    std::string token; \
+ \
+    stream >> token; \
+ \
+    if(false) \
+        ; \
+    BOOST_PP_SEQ_FOR_EACH(GG_DEF_ENUM_ISTREAM_CASE, _, values) \
+    else \
+        stream.setstate(std::ios::failbit); \
+ \
+    return stream; \
+}
 
-        int default_value = 0;
-        std::string name;
-        while (std::getline(name_stream, name, ',')) {
-            map.Insert(default_value, name);
-        }
-    }
+/** @brief Implementation detail for GG_ENUM */
+#define GG_DEF_ENUM_ADD_STRING_REPR(s, data, elem) \
+    BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_TUPLE_SIZE(elem), 1), \
+        BOOST_PP_TUPLE_PUSH_BACK(elem, BOOST_PP_STRINGIZE(BOOST_PP_TUPLE_ELEM(0, elem))), \
+        elem)
 
-/** An enum macro for use inside classes.
-  * Enables << and >> for your enum,
-  * all of which will exist in whatever namespace this
-  * macro is used. */
-#define GG_CLASS_ENUM(EnumName, ...)                                                    \
-    enum EnumName : int {                                                               \
-        __VA_ARGS__                                                                     \
-     };                                                                                 \
-                                                                                        \
-    friend inline std::istream& operator>>(std::istream& is, EnumName& value) {  \
-        ::GG::EnumMap<EnumName>& map = ::GG::GetEnumMap<EnumName>();                    \
-        if (map.size() == 0)                                                            \
-            ::GG::BuildEnumMap(map, #EnumName, #__VA_ARGS__);                           \
-                                                                                        \
-        std::string name;                                                               \
-        is >> name;                                                                     \
-        value = map[name];                                                              \
-        return is;                                                                      \
-    }                                                                                   \
-                                                                                        \
-    friend inline std::ostream& operator<<(std::ostream& os, EnumName value) {   \
-        ::GG::EnumMap<EnumName>& map = ::GG::GetEnumMap<EnumName>();                    \
-        if (map.size() == 0)                                                            \
-            ::GG::BuildEnumMap(map, #EnumName, #__VA_ARGS__);                           \
-                                                                                        \
-        const std::string& name = map[value];                                           \
-        return os << name;                                                              \
-    }                                                                                   \
-
-/** An enum macro for use outside of classes.
-  * Enables << and >> for your enum,
-  * all of which will exist in whatever namespace this
-  * macro is used. */
-#define GG_ENUM(EnumName, ...)                                                          \
-    enum EnumName : int {                                                               \
-        __VA_ARGS__                                                                     \
-    };                                                                                  \
-                                                                                        \
-    inline std::istream& operator>>(std::istream& is, EnumName& value) {         \
-        ::GG::EnumMap<EnumName>& map = ::GG::GetEnumMap<EnumName>();                    \
-        if (map.size() == 0)                                                            \
-            ::GG::BuildEnumMap(map, #EnumName, #__VA_ARGS__);                           \
-                                                                                        \
-        std::string name;                                                               \
-        is >> name;                                                                     \
-        value = map[name];                                                              \
-        return is;                                                                      \
-    }                                                                                   \
-                                                                                        \
-    inline std::ostream& operator<<(std::ostream& os, EnumName value) {          \
-        ::GG::EnumMap<EnumName>& map = ::GG::GetEnumMap<EnumName>();                    \
-        if (map.size() == 0)                                                            \
-            ::GG::BuildEnumMap(map, #EnumName, #__VA_ARGS__);                           \
-                                                                                        \
-        const std::string& name = map[value];                                           \
-        return os << name;                                                              \
-    }                                                                                   \
-
-      /////////////
-     // EnumMap //
-    /////////////
-    template <typename EnumType>
-    const std::string& EnumMap<EnumType>::operator[](EnumType value) const {
-        auto it = m_value_to_name_map.find(value);
-        if (it != m_value_to_name_map.end()) {
-            return it->second;
-        } else {
-            static std::string none("None");
-            return none;
-        }
-    }
-
-    template <typename EnumType>
-    EnumType EnumMap<EnumType>::operator[](const std::string& name) const {
-        auto it = m_name_to_value_map.find(name);
-        if (it != m_name_to_value_map.end()) {
-            return it->second;
-        } else {
-            return BAD_VALUE;
-        }
-    }
-
-    template <typename EnumType>
-    size_t EnumMap<EnumType>::size() const {
-        return m_name_to_value_map.size();
-    }
-
-    template <typename EnumType>
-    void EnumMap<EnumType>::Insert(int& default_value, const std::string& entry) {
-        std::stringstream name_and_value(entry);
-
-        std::string name;
-        std::getline(name_and_value, name, '=');
-
-        std::string value_str;
-        EnumType value;
-        if (std::getline(name_and_value, value_str)) {
-            value = (EnumType)strtol(value_str.c_str(), nullptr, 0);
-        }
-        else {
-            value = (EnumType)default_value;
-        }
-
-        boost::trim(name);
-
-        m_name_to_value_map[name] = value;
-        m_value_to_name_map[value] = name;
-        default_value = value + 1;
-    }
-
-} // namespace GG
+/** @brief Define an enumeration
+ *
+ * Defines an enumeration named @p typeName with the enumeration @p values in
+ * the namespace where this macro is used. Also defines << and >> operators for
+ * iostream usage.
+ *
+ * Use a tuple containing only the enumeration name when the enum is located
+ * outside of a class as @p typeName.  Prepend the class name to the @p typeName
+ * tuple when using it inside a class.
+ *
+ * Use a sequence of 1 to 3 element tuples as values.  The first tuple value
+ * should contain the enum value symbol, the optional second one the string
+ * representation.  IF no second value is set the stringified version of the
+ * enum value symbol is used. The optional third tuple element should contain
+ * the assigned enum element value.  If no third tuple value is given the
+ * default enum element value assignment is used.
+ *
+ * When using the << operator the string representation of the enumeration is
+ * written to the ostream.
+ *
+ * When using the >> operator and one string representation matches the input
+ * value the output will be set to the associated enum value.  If the input
+ * value doesn't match any string representation the istream failbit will be
+ * set.
+ *
+ * Examples:
+ *
+ * Free enumeration:
+ * @code
+ * GG_ENUM(
+ *     (Animal),
+ *     ((CAT))
+ *     ((DOG, "Dog"))
+ *     ((COW, "Cow", 5))
+ * )
+ * @endcode
+ *
+ * Class member enumeration:
+ * @code
+ * class AutomaticGearBox
+ * {
+ * public:
+ *     GG_ENUM(
+ *         (AutomaticGearBox, Gear),
+ *         ((PARK,    "P", -5))
+ *         ((REVERSE, "R", -1))
+ *         ((NEUTRAL, "N",  0))
+ *         ((LOW,     "L"))
+ *         ((DRIVE,   "D"))
+ *         ((SPRINT,  "S"))
+ *     )
+ * }
+ * @endcode
+ */
+#define GG_ENUM(typeName, values) \
+    GG_DEF_ENUM(typeName, BOOST_PP_SEQ_TRANSFORM(GG_DEF_ENUM_ADD_STRING_REPR, _, values)) \
+    GG_DEF_ENUM_OSTREAM(typeName, BOOST_PP_SEQ_TRANSFORM(GG_DEF_ENUM_ADD_STRING_REPR, _, values)) \
+    GG_DEF_ENUM_ISTREAM(typeName, BOOST_PP_SEQ_TRANSFORM(GG_DEF_ENUM_ADD_STRING_REPR, _, values))
 
 #endif

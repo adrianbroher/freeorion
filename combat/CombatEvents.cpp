@@ -7,9 +7,9 @@
 #include "../universe/Universe.h"
 #include "../universe/Enums.h"
 
+#include "../util/AppInterface.h"
 #include "../util/i18n.h"
 #include "../util/Logger.h"
-#include "../util/AppInterface.h"
 #include "../util/VarText.h"
 #include "../util/GameRules.h"
 

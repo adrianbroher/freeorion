@@ -11,7 +11,7 @@
 #include "CUISlider.h"
 #include "CUIWnd.h"
 #include "FleetButton.h"
-#include "../universe/EnumsFwd.h"
+#include "../universe/Enums.h"
 #include "../universe/Fleet.h"
 
 

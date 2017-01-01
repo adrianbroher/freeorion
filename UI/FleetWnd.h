@@ -19,10 +19,11 @@ class ScanlineControl;
 
 
 /* the new fleet aggression settings */
-GG_ENUM(NewFleetAggression,
-    INVALID_FLEET_AGGRESSION = -1,
-    FLEET_AGGRESSIVE,
-    FLEET_PASSIVE
+GG_ENUM(
+    (NewFleetAggression),
+    ((INVALID_FLEET_AGGRESSION, "INVALID_FLEET_AGGRESSION", -1))
+    ((FLEET_AGGRESSIVE))
+    ((FLEET_PASSIVE))
 )
 
 /** Manages the lifetimes of FleetWnds. */

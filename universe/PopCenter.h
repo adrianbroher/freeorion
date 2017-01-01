@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 #include <boost/serialization/nvp.hpp>
-#include "EnumsFwd.h"
+#include "Enums.h"
 #include "../util/Export.h"
 
 
