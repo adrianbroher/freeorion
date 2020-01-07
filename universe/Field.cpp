@@ -1,7 +1,7 @@
 #include "Field.h"
 
 #include "Condition.h"
-#include "Effect.h"
+#include "Effects.h"
 #include "Enums.h"
 #include "Meter.h"
 #include "Predicates.h"
