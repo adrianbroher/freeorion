@@ -6,11 +6,12 @@
 #include "Meter.h"
 #include "Predicates.h"
 #include "Universe.h"
-#include "ValueRef.h"
+#include "ValueRefs.h"
 #include "../util/AppInterface.h"
 #include "../util/OptionsDB.h"
 #include "../util/Logger.h"
 #include "../util/CheckSums.h"
+#include "../util/i18n.h"
 #include "../util/ScopedTimer.h"
 
 #include <boost/algorithm/string/case_conv.hpp>

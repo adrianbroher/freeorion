@@ -3,9 +3,11 @@
 #include "Empire.h"
 #include "../universe/Building.h"
 #include "../universe/ShipDesign.h"
+#include "../universe/ConditionBase.h"
 #include "../universe/ValueRef.h"
 #include "../util/AppInterface.h"
 #include "../util/GameRules.h"
+#include "../util/i18n.h"
 #include "../util/ScopedTimer.h"
 
 #include <boost/range/numeric.hpp>

@@ -27,8 +27,8 @@ target_sources(freeorioncommon
         ${CMAKE_CURRENT_LIST_DIR}/Universe.h
         ${CMAKE_CURRENT_LIST_DIR}/Pathfinder.h
         ${CMAKE_CURRENT_LIST_DIR}/UniverseObject.h
-        ${CMAKE_CURRENT_LIST_DIR}/ValueRefBase.h
         ${CMAKE_CURRENT_LIST_DIR}/ValueRef.h
+        ${CMAKE_CURRENT_LIST_DIR}/ValueRefs.h
         ${CMAKE_CURRENT_LIST_DIR}/ValueRefFwd.h
     PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/Building.cpp
@@ -56,7 +56,7 @@ target_sources(freeorioncommon
         ${CMAKE_CURRENT_LIST_DIR}/Universe.cpp
         ${CMAKE_CURRENT_LIST_DIR}/Pathfinder.cpp
         ${CMAKE_CURRENT_LIST_DIR}/UniverseObject.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/ValueRef.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/ValueRefs.cpp
 )
 
 target_sources(freeoriond

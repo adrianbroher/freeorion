@@ -1,7 +1,8 @@
 #include "EffectParser1.h"
 
 #include "../universe/Effect.h"
-#include "../universe/ValueRef.h"
+#include "../universe/Condition.h"
+#include "../universe/ValueRefs.h"
 #include "../universe/Enums.h"
 
 #include <boost/spirit/include/phoenix.hpp>

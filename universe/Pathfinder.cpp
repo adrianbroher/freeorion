@@ -1351,7 +1351,7 @@ int Pathfinder::NearestSystemTo(double x, double y) const
 { return pimpl->NearestSystemTo(x, y); }
 
 int Pathfinder::PathfinderImpl::NearestSystemTo(double x, double y) const {
-    double min_dist2 = DBL_MAX;
+    double min_dist2 = std::numeric_limits<double>::max();
     int min_dist2_sys_id = INVALID_OBJECT_ID;
 
     auto systems = Objects().FindObjects<System>();
