@@ -19,7 +19,7 @@
 #include "../universe/Building.h"
 #include "../universe/ShipDesign.h"
 #include "../universe/Effect.h"
-#include "../universe/Condition.h"
+#include "../universe/Conditions.h"
 #include "../universe/Enums.h"
 #include "../universe/ValueRef.h"
 #include "../client/human/HumanClientApp.h"

@@ -1,8 +1,8 @@
 #ifndef _ValueRefs_h_
 #define _ValueRefs_h_
 
-#include "ScriptingContext.h"
 #include "ValueRef.h"
+#include "ScriptingContext.h"
 #include "Condition.h"
 #include "Universe.h"
 #include "../util/Export.h"
@@ -13,6 +13,7 @@
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/format.hpp>
+#include <boost/serialization/nvp.hpp>
 
 #include <iterator>
 #include <map>

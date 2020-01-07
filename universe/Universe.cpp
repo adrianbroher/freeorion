@@ -24,7 +24,7 @@
 #include "Special.h"
 #include "Species.h"
 #include "Tech.h"
-#include "Condition.h"
+#include "Conditions.h"
 #include "ValueRef.h"
 #include "Enums.h"
 #include "Pathfinder.h"

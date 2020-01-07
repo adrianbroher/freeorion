@@ -7,7 +7,7 @@
 #include "../util/CheckSums.h"
 #include "../Empire/Empire.h"
 #include "../Empire/EmpireManager.h"
-#include "Condition.h"
+#include "Conditions.h"
 #include "Effects.h"
 #include "Planet.h"
 #include "Ship.h"

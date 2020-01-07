@@ -3,7 +3,7 @@
 #include "Empire.h"
 #include "../universe/Building.h"
 #include "../universe/ShipDesign.h"
-#include "../universe/ConditionBase.h"
+#include "../universe/Condition.h"
 #include "../universe/ValueRef.h"
 #include "../util/AppInterface.h"
 #include "../util/GameRules.h"

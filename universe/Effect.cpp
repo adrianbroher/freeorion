@@ -5,6 +5,8 @@
 #include "Enums.h"
 #include "Condition.h"
 
+#include "../util/CheckSums.h"
+
 Effect::EffectCause::EffectCause() :
     cause_type(INVALID_EFFECTS_GROUP_CAUSE_TYPE),
     specific_cause(),

@@ -1,8 +1,8 @@
 target_sources(freeorioncommon
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/Building.h
-        ${CMAKE_CURRENT_LIST_DIR}/ConditionBase.h
         ${CMAKE_CURRENT_LIST_DIR}/Condition.h
+        ${CMAKE_CURRENT_LIST_DIR}/Conditions.h
         ${CMAKE_CURRENT_LIST_DIR}/Effect.h
         ${CMAKE_CURRENT_LIST_DIR}/Effects.h
         ${CMAKE_CURRENT_LIST_DIR}/Encyclopedia.h
@@ -31,7 +31,7 @@ target_sources(freeorioncommon
         ${CMAKE_CURRENT_LIST_DIR}/ValueRefs.h
     PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/Building.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/Condition.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/Conditions.cpp
         ${CMAKE_CURRENT_LIST_DIR}/Effect.cpp
         ${CMAKE_CURRENT_LIST_DIR}/Effects.cpp
         ${CMAKE_CURRENT_LIST_DIR}/Encyclopedia.cpp
