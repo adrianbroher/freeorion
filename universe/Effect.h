@@ -12,7 +12,6 @@
 #include <vector>
 
 class UniverseObject;
-struct ScriptingContext;
 
 namespace Condition {
     struct ConditionBase;
@@ -25,9 +24,6 @@ namespace ValueRef {
 }
 
 namespace Effect {
-class EffectBase;
-
-
 /** Contains one or more Effects, a Condition which indicates the objects in
   * the scope of the Effect(s), and a Condition which indicates whether or not
   * the Effect(s) will be executed on the objects in scope during the current
@@ -92,50 +88,6 @@ private:
 
 /** Returns a single string which `Dump`s a vector of EffectsGroups. */
 FO_COMMON_API std::string Dump(const std::vector<std::shared_ptr<EffectsGroup>>& effects_groups);
-
-/** The base class for all Effects.  When an Effect is executed, the source
-  * object (the object to which the Effect or its containing EffectGroup is
-  * attached) and the target object are both required.  Note that this means
-  * that ValueRefs contained within Effects can refer to values in either the
-  * source or target objects. */
-class FO_COMMON_API EffectBase {
-public:
-    virtual ~EffectBase();
-
-    virtual void Execute(const ScriptingContext& context) const = 0;
-
-    virtual void Execute(const ScriptingContext& context, const TargetSet& targets) const;
-
-    void Execute(const TargetsCauses& targets_causes,
-                 AccountingMap* accounting_map,
-                 bool only_meter_effects = false,
-                 bool only_appearance_effects = false,
-                 bool include_empire_meter_effects = false,
-                 bool only_generate_sitrep_effects = false) const;
-
-    virtual void Execute(const ScriptingContext& context,
-                         const TargetSet& targets,
-                         AccountingMap* accounting_map,
-                         const EffectCause& effect_cause,
-                         bool only_meter_effects = false,
-                         bool only_appearance_effects = false,
-                         bool include_empire_meter_effects = false,
-                         bool only_generate_sitrep_effects = false) const;
-
-    virtual std::string     Dump(unsigned short ntabs = 0) const = 0;
-    virtual bool            IsMeterEffect() const { return false; }
-    virtual bool            IsEmpireMeterEffect() const { return false; }
-    virtual bool            IsAppearanceEffect() const { return false; }
-    virtual bool            IsSitrepEffect() const { return false; }
-    virtual bool            IsConditionalEffect() const { return false; }
-    virtual void            SetTopLevelContent(const std::string& content_name) = 0;
-    virtual unsigned int    GetCheckSum() const;
-
-private:
-    friend class boost::serialization::access;
-    template <class Archive>
-    void serialize(Archive& ar, const unsigned int version);
-};
 
 /** Does nothing when executed. Useful for triggering side-effects of effect
   * execution without modifying the gamestate. */
