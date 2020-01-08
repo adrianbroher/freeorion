@@ -1,8 +1,6 @@
 #ifndef _Tech_h_
 #define _Tech_h_
 
-#include "ValueRefFwd.h"
-
 #include "EnumsFwd.h"
 #include "../util/Export.h"
 #include "../util/Pending.h"
@@ -20,8 +18,13 @@
 
 #include <GG/Clr.h>
 
-namespace Effect
-{ class EffectsGroup; }
+namespace Effect {
+    class EffectsGroup;
+}
+namespace ValueRef {
+    template <class T>
+    struct ValueRefBase;
+}
 class TechManager;
 struct ItemSpec;
 

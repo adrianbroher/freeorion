@@ -2,7 +2,6 @@
 
 #include "ConditionParserImpl.h"
 #include "MovableEnvelope.h"
-#include "../universe/ValueRefs.h"
 
 #include <boost/spirit/include/phoenix.hpp>
 
@@ -36,6 +35,27 @@ namespace parse { namespace detail {
         variable_scope.name("Source, Target, LocalCandidate, or RootCandidate");
 
         return variable_scope;
+    }
+
+    statistic_enum_grammar::statistic_enum_grammar(const parse::lexer& tok) :
+        statistic_enum_grammar::base_type(rule, "statistic_enum_grammar")
+    {
+        qi::_val_type _val;
+
+        rule
+            =   tok.CountUnique_    [ _val = ValueRef::UNIQUE_COUNT ]
+            |   tok.Count_          [ _val = ValueRef::COUNT ]
+            |   tok.If_             [ _val = ValueRef::IF ]
+            |   tok.Sum_            [ _val = ValueRef::SUM ]
+            |   tok.Mean_           [ _val = ValueRef::MEAN ]
+            |   tok.RMS_            [ _val = ValueRef::RMS ]
+            |   tok.Mode_           [ _val = ValueRef::MODE ]
+            |   tok.Max_            [ _val = ValueRef::MAX ]
+            |   tok.Min_            [ _val = ValueRef::MIN ]
+            |   tok.Spread_         [ _val = ValueRef::SPREAD ]
+            |   tok.StDev_          [ _val = ValueRef::STDEV ]
+            |   tok.Product_        [ _val = ValueRef::PRODUCT ]
+            ;
     }
 
     const name_token_rule container_type(const parse::lexer& tok) {

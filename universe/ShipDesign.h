@@ -2,8 +2,6 @@
 #define _ShipDesign_h_
 
 
-#include "ValueRefFwd.h"
-
 #include <map>
 #include <memory>
 #include <set>
@@ -34,6 +32,10 @@ namespace Condition {
 }
 namespace Effect {
     class EffectsGroup;
+}
+namespace ValueRef {
+    template <class T>
+    struct ValueRefBase;
 }
 class Empire;
 

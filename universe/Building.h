@@ -3,7 +3,6 @@
 
 #include "UniverseObject.h"
 #include "ObjectMap.h"
-#include "ValueRefFwd.h"
 #include "ShipDesign.h"
 #include "../util/Export.h"
 #include "../util/Pending.h"

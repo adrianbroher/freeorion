@@ -4,7 +4,6 @@
 #include "Lexer.h"
 
 #include "ParseImpl.h"
-#include "../universe/ValueRefFwd.h"
 #include "../universe/EnumsFwd.h"
 
 #include <boost/spirit/include/qi.hpp>
@@ -35,11 +34,6 @@ namespace parse {
     struct capture_result_enum_grammar : public detail::enum_grammar<CaptureResult> {
         capture_result_enum_grammar(const parse::lexer& tok);
         detail::enum_rule<CaptureResult> rule;
-    };
-
-    struct statistic_enum_grammar : public detail::enum_grammar<ValueRef::StatisticType> {
-        statistic_enum_grammar(const parse::lexer& tok);
-        detail::enum_rule<ValueRef::StatisticType> rule;
     };
 
     struct non_ship_part_meter_enum_grammar : public detail::enum_grammar<MeterType> {

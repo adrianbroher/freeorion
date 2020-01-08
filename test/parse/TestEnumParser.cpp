@@ -294,17 +294,17 @@ BOOST_AUTO_TEST_CASE(ShipSlotTypeParser) {
 BOOST_AUTO_TEST_CASE(StatisticTypeParser) {
     // XXX: No enum number value to validate enum coverage.
 
-    CHECK_ENUM_AND_RESULT("Count", ValueRef::COUNT, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_ENUM_AND_RESULT("Sum", ValueRef::SUM, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_ENUM_AND_RESULT("Mean", ValueRef::MEAN, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_ENUM_AND_RESULT("Rms", ValueRef::RMS, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_ENUM_AND_RESULT("Mode", ValueRef::MODE, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_ENUM_AND_RESULT("Max", ValueRef::MAX, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_ENUM_AND_RESULT("Min", ValueRef::MIN, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_ENUM_AND_RESULT("Spread", ValueRef::SPREAD, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_ENUM_AND_RESULT("StDev", ValueRef::STDEV, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_ENUM_AND_RESULT("Product", ValueRef::PRODUCT, ValueRef::StatisticType, parse::statistic_enum_grammar);
-    CHECK_FAILED_ENUM(ValueRef::StatisticType, parse::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("Count", ValueRef::COUNT, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("Sum", ValueRef::SUM, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("Mean", ValueRef::MEAN, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("Rms", ValueRef::RMS, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("Mode", ValueRef::MODE, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("Max", ValueRef::MAX, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("Min", ValueRef::MIN, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("Spread", ValueRef::SPREAD, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("StDev", ValueRef::STDEV, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_ENUM_AND_RESULT("Product", ValueRef::PRODUCT, ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
+    CHECK_FAILED_ENUM(ValueRef::StatisticType, parse::detail::statistic_enum_grammar);
 }
 
 BOOST_AUTO_TEST_CASE(StarTypeParser) {
