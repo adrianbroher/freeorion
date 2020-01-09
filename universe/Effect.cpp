@@ -29,7 +29,7 @@ Effect::AccountingInfo::AccountingInfo() :
     running_meter_total(0.0)
 {}
 
-bool Effect::AccountingInfo::operator==(const Effect::AccountingInfo& rhs) const {
+bool Effect::AccountingInfo::operator==(const AccountingInfo& rhs) const {
     return
         cause_type == rhs.cause_type &&
         specific_cause == rhs.specific_cause &&
@@ -66,9 +66,9 @@ bool Effect::SourcedEffectsGroup::operator<(const SourcedEffectsGroup& right) co
 ///////////////////////////////////////////////////////////
 // EffectsGroup                                          //
 ///////////////////////////////////////////////////////////
-Effect::EffectsGroup::EffectsGroup(std::unique_ptr<Condition::ConditionBase>&& scope,
-                           std::unique_ptr<Condition::ConditionBase>&& activation,
-                           std::vector<std::unique_ptr<EffectBase>>&& effects,
+Effect::EffectsGroup::EffectsGroup(std::unique_ptr<Condition::Condition>&& scope,
+                           std::unique_ptr<Condition::Condition>&& activation,
+                           std::vector<std::unique_ptr<Effect>>&& effects,
                            const std::string& accounting_label,
                            const std::string& stacking_group, int priority,
                            const std::string& description,
@@ -100,10 +100,10 @@ void Effect::EffectsGroup::Execute(const TargetsCauses& targets_causes, Accounti
     }
 }
 
-const std::vector<Effect::EffectBase*>  Effect::EffectsGroup::EffectsList() const {
-    std::vector<EffectBase*> retval(m_effects.size());
+const std::vector<Effect::Effect*>  Effect::EffectsGroup::EffectsList() const {
+    std::vector<Effect*> retval(m_effects.size());
     std::transform(m_effects.begin(), m_effects.end(), retval.begin(),
-                   [](const std::unique_ptr<EffectBase>& xx) {return xx.get();});
+                   [](const std::unique_ptr<Effect>& xx) {return xx.get();});
     return retval;
 }
 
