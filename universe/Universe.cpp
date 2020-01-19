@@ -24,7 +24,7 @@
 #include "Special.h"
 #include "Species.h"
 #include "Tech.h"
-#include "Condition.h"
+#include "Conditions.h"
 #include "ValueRef.h"
 #include "Enums.h"
 #include "Pathfinder.h"
@@ -876,12 +876,12 @@ namespace {
     public:
         struct ConditionCache : public boost::noncopyable {
         public:
-            std::pair<bool, Effect::TargetSet>* Find(const Condition::ConditionBase* cond, bool insert);
+            std::pair<bool, Effect::TargetSet>* Find(const Condition::Condition* cond, bool insert);
             void MarkComplete(std::pair<bool, Effect::TargetSet>* cache_entry);
             void LockShared(boost::shared_lock<boost::shared_mutex>& guard);
 
         private:
-            std::map<const Condition::ConditionBase*, std::pair<bool, Effect::TargetSet>> m_entries;
+            std::map<const Condition::Condition*, std::pair<bool, Effect::TargetSet>> m_entries;
             boost::shared_mutex m_mutex;
             boost::condition_variable_any m_state_changed;
         };
@@ -914,7 +914,7 @@ namespace {
         boost::shared_mutex*                                    m_global_mutex;
 
         static Effect::TargetSet& GetConditionMatches(
-            const Condition::ConditionBase*         cond,
+            const Condition::Condition*             cond,
             ConditionCache&                         cached_condition_matches,
             std::shared_ptr<const UniverseObject>   source,
             const ScriptingContext&                 source_context,
@@ -948,7 +948,7 @@ namespace {
 
     std::pair<bool, Effect::TargetSet>*
     StoreTargetsAndCausesOfEffectsGroupsWorkItem::ConditionCache::Find(
-        const Condition::ConditionBase* cond, bool insert)
+        const Condition::Condition* cond, bool insert)
     {
         // have to iterate through cached condition matches, rather than using
         // find, since there is no operator< for comparing conditions by value
@@ -1005,7 +1005,7 @@ namespace {
     Effect::TargetSet EMPTY_TARGET_SET;
 
     Effect::TargetSet& StoreTargetsAndCausesOfEffectsGroupsWorkItem::GetConditionMatches(
-        const Condition::ConditionBase*                                 cond,
+        const Condition::Condition*                                     cond,
         StoreTargetsAndCausesOfEffectsGroupsWorkItem::ConditionCache&   cached_condition_matches,
         std::shared_ptr<const UniverseObject>                           source,
         const ScriptingContext&                                         source_context,
@@ -1730,7 +1730,7 @@ void Universe::CountDestructionInStats(int object_id, int source_object_id) {
 }
 
 void Universe::SetEffectDerivedVisibility(int empire_id, int object_id, int source_id,
-                                          const ValueRef::ValueRefBase<Visibility>* vis)
+                                          const ValueRef::ValueRef<Visibility>* vis)
 {
     if (empire_id == ALL_EMPIRES)
         return;

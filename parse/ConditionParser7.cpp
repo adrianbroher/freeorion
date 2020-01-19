@@ -2,7 +2,7 @@
 
 #include "ValueRefParser.h"
 
-#include "../universe/Condition.h"
+#include "../universe/Conditions.h"
 #include "../universe/ValueRef.h"
 
 #include <boost/spirit/include/phoenix.hpp>
@@ -14,7 +14,7 @@ namespace phoenix = boost::phoenix;
 
 #if DEBUG_CONDITION_PARSERS
 namespace std {
-    inline ostream& operator<<(ostream& os, const std::vector<ValueRef::ValueRefBase<StarType>*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<ValueRef::ValueRef<StarType>*>&) { return os; }
 }
 #endif
 

@@ -15,6 +15,7 @@
 #include "../util/OptionsDB.h"
 #include "../util/Random.h"
 #include "../util/Directories.h"
+#include "../util/i18n.h"
 #include "../util/SitRepEntry.h"
 #include "../Empire/Empire.h"
 #include "../Empire/EmpireManager.h"

@@ -3,7 +3,6 @@
 
 
 #include "EnumsFwd.h"
-#include "ValueRefFwd.h"
 #include "ObjectMap.h"
 #include "UniverseObject.h"
 #include "../util/Pending.h"
@@ -35,7 +34,6 @@ class MonsterFleetPlan;
 
 
 namespace Condition {
-    struct ConditionBase;
     typedef std::vector<std::shared_ptr<const UniverseObject>> ObjectSet;
 }
 
@@ -51,7 +49,7 @@ namespace Effect {
 }
 
 namespace ValueRef {
-    template <class T> struct ValueRefBase;
+    template <class T> struct ValueRef;
 }
 
 #if defined(_MSC_VER)
@@ -82,7 +80,7 @@ private:
 
     typedef std::map<int, std::set<int>>            ObjectKnowledgeMap;             ///< IDs of Empires which know information about an object (or deleted object); keyed by object id
 
-    typedef const ValueRef::ValueRefBase<Visibility>*   VisValRef;
+    typedef const ValueRef::ValueRef<Visibility>*       VisValRef;
     typedef std::vector<std::pair<int, VisValRef>>      SrcVisValRefVec;
     typedef std::map<int, SrcVisValRefVec>              ObjSrcVisValRefVecMap;
     typedef std::map<int, ObjSrcVisValRefVecMap>        EmpireObjectVisValueRefMap;
@@ -264,7 +262,7 @@ public:
     /** Sets a special record of visibility that overrides the standard
       * empire-object visibility after the latter is processed. */
     void SetEffectDerivedVisibility(int empire_id, int object_id, int source_id,
-                                    const ValueRef::ValueRefBase<Visibility>* vis);
+                                    const ValueRef::ValueRef<Visibility>* vis);
 
     /** Applies empire-object visibilities set by effects. */
     void ApplyEffectDerivedVisibilities();
@@ -418,7 +416,7 @@ public:
     const std::vector<MonsterFleetPlan*> MonsterFleetPlans() const;
 
     /** Set the empire stats from \p future. */
-    using EmpireStatsMap = std::map<std::string, std::unique_ptr<ValueRef::ValueRefBase<double>>>;
+    using EmpireStatsMap = std::map<std::string, std::unique_ptr<ValueRef::ValueRef<double>>>;
     void SetEmpireStats(Pending::Pending<EmpireStatsMap> future);
 private:
     const EmpireStatsMap& EmpireStats() const;

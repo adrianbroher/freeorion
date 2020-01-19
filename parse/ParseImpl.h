@@ -13,14 +13,6 @@
 #include <GG/Clr.h>
 
 
-namespace Condition {
-    struct ConditionBase;
-}
-
-namespace Effect {
-    class EffectBase;
-}
-
 namespace parse { namespace detail {
     template <typename T, typename U>
     void emplace_back_1(std::vector<T>& vect, U&& item) {

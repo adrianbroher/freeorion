@@ -4,21 +4,21 @@
 #include "EnumParser.h"
 #include "MovableEnvelope.h"
 
-#include "../universe/ValueRefFwd.h"
+#include "../universe/ValueRefs.h"
 #include "../universe/EnumsFwd.h"
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
 
 namespace Condition {
-    struct ConditionBase;
+    struct Condition;
 }
 
 namespace parse { namespace detail {
     // TODO: Investigate refactoring ValueRef to use variant,
     // for increased locality of reference.
     template <typename T>
-    using value_ref_payload = MovableEnvelope<ValueRef::ValueRefBase<T>>;
+    using value_ref_payload = MovableEnvelope<ValueRef::ValueRef<T>>;
     template <typename T>
     using value_ref_signature = value_ref_payload<T> ();
     template <typename T>
@@ -26,7 +26,7 @@ namespace parse { namespace detail {
     template <typename T>
     using value_ref_grammar = detail::grammar<value_ref_signature<T>>;
 
-    using condition_payload        = MovableEnvelope<Condition::ConditionBase>;
+    using condition_payload        = MovableEnvelope<Condition::Condition>;
     using condition_signature      = condition_payload ();
     using condition_parser_grammar = grammar<condition_signature>;
 
@@ -35,6 +35,10 @@ namespace parse { namespace detail {
     const parse::detail::reference_token_rule variable_scope(const parse::lexer& tok);
     const parse::detail::name_token_rule container_type(const parse::lexer& tok);
 
+    struct statistic_enum_grammar : public detail::enum_grammar<ValueRef::StatisticType> {
+        statistic_enum_grammar(const parse::lexer& tok);
+        detail::enum_rule<ValueRef::StatisticType> rule;
+    };
 
     template <typename T>
     using variable_payload = MovableEnvelope<ValueRef::Variable<T>>;
@@ -97,7 +101,7 @@ namespace parse { namespace detail {
                          Labeller& label,
                          const condition_parser_grammar& condition_parser);
 
-        parse::statistic_enum_grammar   statistic_type_enum;
+        detail::statistic_enum_grammar  statistic_type_enum;
         expression_rule<T>              functional_expr;
         expression_rule<T>              exponential_expr;
         expression_rule<T>              multiplicative_expr;

@@ -1,16 +1,17 @@
 #include "Field.h"
 
-#include "Condition.h"
-#include "Effect.h"
+#include "Conditions.h"
+#include "Effects.h"
 #include "Enums.h"
 #include "Meter.h"
 #include "Predicates.h"
 #include "Universe.h"
-#include "ValueRef.h"
+#include "ValueRefs.h"
 #include "../util/AppInterface.h"
 #include "../util/OptionsDB.h"
 #include "../util/Logger.h"
 #include "../util/CheckSums.h"
+#include "../util/i18n.h"
 #include "../util/ScopedTimer.h"
 
 #include <boost/algorithm/string/case_conv.hpp>
@@ -21,7 +22,6 @@
 namespace {
     std::shared_ptr<Effect::EffectsGroup>
     IncreaseMeter(MeterType meter_type, double increase) {
-        typedef std::vector<std::unique_ptr<Effect::EffectBase>> Effects;
         auto scope = boost::make_unique<Condition::Source>();
         std::unique_ptr<Condition::Source> activation = nullptr;
         auto vr =
@@ -31,7 +31,7 @@ namespace {
                     ValueRef::EFFECT_TARGET_VALUE_REFERENCE, std::vector<std::string>()),
                 boost::make_unique<ValueRef::Constant<double>>(increase)
             );
-        auto effects = Effects();
+        auto effects = std::vector<std::unique_ptr<Effect::Effect>>();
         effects.push_back(boost::make_unique<Effect::SetMeter>(meter_type, std::move(vr)));
         return std::make_shared<Effect::EffectsGroup>(std::move(scope), std::move(activation), std::move(effects));
     }

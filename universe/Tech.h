@@ -1,8 +1,6 @@
 #ifndef _Tech_h_
 #define _Tech_h_
 
-#include "ValueRefFwd.h"
-
 #include "EnumsFwd.h"
 #include "../util/Export.h"
 #include "../util/Pending.h"
@@ -20,8 +18,13 @@
 
 #include <GG/Clr.h>
 
-namespace Effect
-{ class EffectsGroup; }
+namespace Effect {
+    class EffectsGroup;
+}
+namespace ValueRef {
+    template <class T>
+    struct ValueRef;
+}
 class TechManager;
 struct ItemSpec;
 
@@ -33,8 +36,8 @@ public:
         TechInfo();
         TechInfo(const std::string& name_, const std::string& description_,
                  const std::string& short_description_, const std::string& category_,
-                 std::unique_ptr<ValueRef::ValueRefBase<double>>&& research_cost_,
-                 std::unique_ptr<ValueRef::ValueRefBase<int>>&& research_turns_,
+                 std::unique_ptr<ValueRef::ValueRef<double>>&& research_cost_,
+                 std::unique_ptr<ValueRef::ValueRef<int>>&& research_turns_,
                  bool researchable_,
                  const std::set<std::string>& tags_);
         ~TechInfo();
@@ -43,8 +46,8 @@ public:
         std::string                     description;
         std::string                     short_description;
         std::string                     category;
-        std::unique_ptr<ValueRef::ValueRefBase<double>> research_cost;
-        std::unique_ptr<ValueRef::ValueRefBase<int>>    research_turns;
+        std::unique_ptr<ValueRef::ValueRef<double>> research_cost;
+        std::unique_ptr<ValueRef::ValueRef<int>>    research_turns;
         bool                            researchable;
         std::set<std::string>           tags;
     };
@@ -52,8 +55,8 @@ public:
     /** \name Structors */ //@{
     Tech(const std::string& name, const std::string& description,
          const std::string& short_description, const std::string& category,
-         std::unique_ptr<ValueRef::ValueRefBase<double>>&& research_cost,
-         std::unique_ptr<ValueRef::ValueRefBase<int>>&& research_turns,
+         std::unique_ptr<ValueRef::ValueRef<double>>&& research_cost,
+         std::unique_ptr<ValueRef::ValueRef<int>>&& research_turns,
          bool researchable,
          const std::set<std::string>& tags,
          const std::vector<std::shared_ptr<Effect::EffectsGroup>>& effects,
@@ -114,8 +117,8 @@ private:
     std::string                     m_description;
     std::string                     m_short_description;
     std::string                     m_category;
-    std::unique_ptr<ValueRef::ValueRefBase<double>> m_research_cost;
-    std::unique_ptr<ValueRef::ValueRefBase<int>>    m_research_turns;
+    std::unique_ptr<ValueRef::ValueRef<double>> m_research_cost;
+    std::unique_ptr<ValueRef::ValueRef<int>>    m_research_turns;
     bool                            m_researchable;
     std::set<std::string>           m_tags;
     std::vector<std::shared_ptr<Effect::EffectsGroup>> m_effects;

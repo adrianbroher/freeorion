@@ -14,6 +14,7 @@
 #include "../util/AppInterface.h"
 #include "../util/GameRules.h"
 #include "../util/CheckSums.h"
+#include "../util/i18n.h"
 #include "../util/ScopedTimer.h"
 
 #include <boost/filesystem/fstream.hpp>
