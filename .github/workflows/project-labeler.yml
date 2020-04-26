@@ -1,5 +1,8 @@
 name: Set Project labels
-on: push
+on:
+  push:
+    paths:
+      - .github/project-labels.yml
 jobs:
   project-labeler:
     name: Project Labeler
