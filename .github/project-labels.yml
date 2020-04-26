@@ -84,7 +84,7 @@
   description: "The Implementation can't be tested sufficiently by the developer and require support."
 - name: "status:won't fix"
   color: "c5def5"
-  description: "The Issue won't be fixed by the developers because of the implementation or maintainance effort required, or it being deemed impossible or problematic to resolve."
+  description: "The Issue won't be fixed as implementation or maintainance effort required would be execessive."
 - name: "status:workaround"
   color: "c5def5"
   description: "The Issue/PR provides a workaround for the underlying problem."
