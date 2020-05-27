@@ -406,17 +406,20 @@ template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, EmpireM
 
 
 template <typename Archive>
-void DiplomaticMessage::serialize(Archive& ar, const unsigned int version)
+void serialize(Archive& ar, DiplomaticMessage& obj, unsigned int const version)
 {
-    ar  & BOOST_SERIALIZATION_NVP(m_sender_empire)
-        & BOOST_SERIALIZATION_NVP(m_recipient_empire)
-        & BOOST_SERIALIZATION_NVP(m_type);
+    using namespace boost::serialization;
+
+    ar  & make_nvp("m_sender_empire", obj.m_sender_empire)
+        & make_nvp("m_recipient_empire", obj.m_recipient_empire)
+        & make_nvp("m_type", obj.m_type);
 }
 
-template void DiplomaticMessage::serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, const unsigned int);
-template void DiplomaticMessage::serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, const unsigned int);
-template void DiplomaticMessage::serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, const unsigned int);
-template void DiplomaticMessage::serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, const unsigned int);
+template void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, DiplomaticMessage&, unsigned int const);
+template void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, DiplomaticMessage&, unsigned int const);
+template void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, DiplomaticMessage&, unsigned int const);
+template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, DiplomaticMessage&, unsigned int const);
+
 
 template <typename Archive>
 void SupplyManager::serialize(Archive& ar, const unsigned int version)

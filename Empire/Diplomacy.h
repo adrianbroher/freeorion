@@ -2,7 +2,6 @@
 #define _Diplomacy_h_
 
 #include <string>
-#include <boost/serialization/access.hpp>
 #include <GG/Enum.h>
 #include "../util/Export.h"
 
@@ -47,9 +46,8 @@ private:
     int  m_recipient_empire;
     Type m_type;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, DiplomaticMessage&, unsigned int const);
 };
 
 struct FO_COMMON_API DiplomaticStatusUpdateInfo {
