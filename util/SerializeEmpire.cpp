@@ -422,19 +422,21 @@ template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, Diploma
 
 
 template <typename Archive>
-void SupplyManager::serialize(Archive& ar, const unsigned int version)
+void serialize(Archive& ar, SupplyManager& obj, unsigned int const version)
 {
-    ar  & BOOST_SERIALIZATION_NVP(m_supply_starlane_traversals)
-        & BOOST_SERIALIZATION_NVP(m_supply_starlane_obstructed_traversals)
-        & BOOST_SERIALIZATION_NVP(m_fleet_supplyable_system_ids)
-        & BOOST_SERIALIZATION_NVP(m_resource_supply_groups)
-        & BOOST_SERIALIZATION_NVP(m_propagated_supply_ranges)
-        & BOOST_SERIALIZATION_NVP(m_empire_propagated_supply_ranges)
-        & BOOST_SERIALIZATION_NVP(m_propagated_supply_distances)
-        & BOOST_SERIALIZATION_NVP(m_empire_propagated_supply_distances);
+    using namespace boost::serialization;
+
+    ar  & make_nvp("m_supply_starlane_traversals", obj.m_supply_starlane_traversals)
+        & make_nvp("m_supply_starlane_obstructed_traversals", obj.m_supply_starlane_obstructed_traversals)
+        & make_nvp("m_fleet_supplyable_system_ids", obj.m_fleet_supplyable_system_ids)
+        & make_nvp("m_resource_supply_groups", obj.m_resource_supply_groups)
+        & make_nvp("m_propagated_supply_ranges", obj.m_propagated_supply_ranges)
+        & make_nvp("m_empire_propagated_supply_ranges", obj.m_empire_propagated_supply_ranges)
+        & make_nvp("m_propagated_supply_distances", obj.m_propagated_supply_distances)
+        & make_nvp("m_empire_propagated_supply_distances", obj.m_empire_propagated_supply_distances);
 }
 
-template void SupplyManager::serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, const unsigned int);
-template void SupplyManager::serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, const unsigned int);
-template void SupplyManager::serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, const unsigned int);
-template void SupplyManager::serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, const unsigned int);
+template void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, SupplyManager&, unsigned int const);
+template void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, SupplyManager&, unsigned int const);
+template void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, SupplyManager&, unsigned int const);
+template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, SupplyManager&, unsigned int const);

@@ -4,7 +4,6 @@
 #include <map>
 #include <set>
 #include <string>
-#include <boost/serialization/access.hpp>
 #include "../util/Export.h"
 
 
@@ -108,9 +107,8 @@ private:
     std::map<int, std::map<int, float>>             m_empire_propagated_supply_distances;
 
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, SupplyManager&, unsigned int const);
 };
 
 
