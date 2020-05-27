@@ -7,7 +7,6 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <boost/serialization/access.hpp>
 #include <boost/signals2/signal.hpp>
 
 FO_COMMON_API extern const int ALL_EMPIRES;
@@ -31,10 +30,9 @@ struct FO_COMMON_API ResearchQueue {
         float       allocated_rp = 0.0f;
         int         turns_left = 0;
         bool        paused = false;
-    private:
-        friend class boost::serialization::access;
+
         template <typename Archive>
-        void serialize(Archive& ar, const unsigned int version);
+        friend void serialize(Archive&, Element&, unsigned int const);
     };
 
     typedef std::deque<Element> QueueType;
@@ -92,9 +90,8 @@ private:
     float       m_total_RPs_spent = 0.0f;
     int         m_empire_id = ALL_EMPIRES;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ResearchQueue&, unsigned int const);
 };
 
 
