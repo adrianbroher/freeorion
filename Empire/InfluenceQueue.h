@@ -8,7 +8,6 @@
 #include <memory>
 #include <set>
 #include <string>
-#include <boost/serialization/access.hpp>
 #include <boost/signals2/signal.hpp>
 
 class ResourcePool;
@@ -33,11 +32,6 @@ struct FO_COMMON_API InfluenceQueue {
         bool            paused = false;
 
         std::string Dump() const;
-
-    private:
-        friend class boost::serialization::access;
-        template <class Archive>
-        void serialize(Archive& ar, const unsigned int version);
     };
 
     typedef std::deque<Element> QueueType;
@@ -105,9 +99,8 @@ private:
     float       m_expected_new_stockpile_amount = 0.0f;
     int         m_empire_id = ALL_EMPIRES;
 
-    friend class boost::serialization::access;
     template <class Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, InfluenceQueue&, unsigned int const);
 };
 
 
