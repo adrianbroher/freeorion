@@ -4,8 +4,6 @@
 
 #include <set>
 #include <vector>
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/version.hpp>
 #include <boost/signals2/signal.hpp>
 #include <GG/Enum.h>
 #include "../universe/EnumsFwd.h"
@@ -69,8 +67,6 @@ public:
     void        Update();                   ///< recalculates total resource production
 
 private:
-    ResourcePool(); ///< default ctor needed for serialization
-
     std::vector<int>                m_object_ids;                                       ///< IDs of objects to consider in this pool
     std::set<std::set<int>>         m_connected_system_groups;                          ///< sets of systems between and in which objects can share this pool's resource
     std::map<std::set<int>, float>  m_connected_object_groups_resource_output;          ///< cached map from connected group of objects that can share resources, to how much resource is output by ResourceCenters in the group.  regenerated during update from other state information.
@@ -78,27 +74,9 @@ private:
     float                           m_stockpile = 0.0f;                                 ///< current stockpiled amount of resource
     ResourceType                    m_type;                                             ///< what kind of resource does this pool hold?
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ResourcePool&, unsigned int const);
 };
-
-
-BOOST_CLASS_VERSION(ResourcePool, 1)
-
-
-template <typename Archive>
-void ResourcePool::serialize(Archive& ar, const unsigned int version)
-{
-    ar  & BOOST_SERIALIZATION_NVP(m_type)
-        & BOOST_SERIALIZATION_NVP(m_object_ids)
-        & BOOST_SERIALIZATION_NVP(m_stockpile);
-    if (version < 1) {
-        int dummy = -1;
-        ar  & boost::serialization::make_nvp("m_stockpile_object_id", dummy);
-    }
-    ar  & BOOST_SERIALIZATION_NVP(m_connected_system_groups);
-}
 
 
 #endif

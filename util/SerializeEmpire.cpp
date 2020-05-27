@@ -16,6 +16,33 @@
 
 
 template <typename Archive>
+void load_construct_data(Archive& ar, ResourcePool* respool, unsigned int const version)
+{ ::new(respool)ResourcePool(INVALID_RESOURCE_TYPE); }
+
+template <typename Archive>
+void serialize(Archive& ar, ResourcePool& respool, unsigned int const version)
+{
+    using namespace boost::serialization;
+
+    ar  & make_nvp("m_type", respool.m_type)
+        & make_nvp("m_object_ids", respool.m_object_ids)
+        & make_nvp("m_stockpile", respool.m_stockpile);
+    if (version < 1) {
+        int dummy = -1;
+        ar  & make_nvp("m_stockpile_object_id", dummy);
+    }
+    ar  & make_nvp("m_connected_system_groups", respool.m_connected_system_groups);
+}
+
+BOOST_CLASS_VERSION(ResourcePool, 1)
+
+template void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, ResourcePool&, const unsigned int);
+template void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, ResourcePool&, const unsigned int);
+template void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, ResourcePool&, const unsigned int);
+template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, ResourcePool&, const unsigned int);
+
+
+template <typename Archive>
 void ResearchQueue::Element::serialize(Archive& ar, const unsigned int version)
 {
     ar  & BOOST_SERIALIZATION_NVP(name)

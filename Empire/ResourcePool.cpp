@@ -50,10 +50,6 @@ ResourceType MeterToResource(MeterType type) {
 //////////////////////////////////////////////////
 // ResourcePool
 //////////////////////////////////////////////////
-ResourcePool::ResourcePool() :
-    m_type(INVALID_RESOURCE_TYPE)
-{}
-
 ResourcePool::ResourcePool(ResourceType type) :
     m_type(type)
 {}
