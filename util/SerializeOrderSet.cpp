@@ -272,6 +272,23 @@ void ForgetOrder::serialize(Archive& ar, const unsigned int version)
         & BOOST_SERIALIZATION_NVP(m_object_id);
 }
 
+
+template <typename Archive>
+void serialize(Archive& ar, OrderSet& obj, unsigned int const version)
+{
+    ar  & boost::serialization::make_nvp("m_orders", obj.m_orders);
+    if (Archive::is_loading::value) {
+        obj.m_last_added_orders.clear();
+        obj.m_last_deleted_orders.clear();
+    }
+}
+
+template void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, OrderSet&, unsigned int const);
+template void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, OrderSet&, unsigned int const);
+template void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, OrderSet&, unsigned int const);
+template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, OrderSet&, unsigned int const);
+
+
 template <typename Archive>
 void Serialize(Archive& oa, const OrderSet& order_set)
 { oa << BOOST_SERIALIZATION_NVP(order_set); }

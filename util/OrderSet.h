@@ -2,9 +2,6 @@
 #define _OrderSet_h_
 
 
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/nvp.hpp>
-
 #include "Export.h"
 
 #include <map>
@@ -82,21 +79,9 @@ private:
     std::set<int> m_last_added_orders; ///< set of ids added/updated orders
     std::set<int> m_last_deleted_orders; ///< set of ids deleted orders
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, OrderSet&, unsigned int const);
 };
-
-// Template Implementations
-template <typename Archive>
-void OrderSet::serialize(Archive& ar, const unsigned int version)
-{
-    ar  & BOOST_SERIALIZATION_NVP(m_orders);
-    if (Archive::is_loading::value) {
-        m_last_added_orders.clear();
-        m_last_deleted_orders.clear();
-    }
-}
 
 
 #endif
