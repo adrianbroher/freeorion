@@ -5,6 +5,7 @@
 #include "OrderSet.h"
 #include "Order.h"
 #include "SaveGamePreviewUtils.h"
+#include "VarText.h"
 #include "Version.h"
 #include "../universe/System.h"
 
@@ -403,3 +404,19 @@ template void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, PlayerI
 template void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, PlayerInfo&, unsigned int const);
 template void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, PlayerInfo&, unsigned int const);
 template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, PlayerInfo&, unsigned int const);
+
+
+template <typename Archive>
+void serialize(Archive& ar, VarText& vt, unsigned int const version)
+{
+    using namespace boost::serialization;
+
+    ar  & make_nvp("m_template_string", vt.m_template_string)
+        & make_nvp("m_stringtable_lookup_flag", vt.m_stringtable_lookup_flag)
+        & make_nvp("m_variables", vt.m_variables);
+}
+
+template void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, VarText&, const unsigned int);
+template void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, VarText&, const unsigned int);
+template void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, VarText&, const unsigned int);
+template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, VarText&, const unsigned int);

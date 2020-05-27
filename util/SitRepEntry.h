@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include <boost/serialization/nvp.hpp>
 
 #include "Export.h"
 

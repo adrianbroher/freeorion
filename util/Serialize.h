@@ -17,6 +17,8 @@ class OrderSet;
 class Universe;
 class UniverseObject;
 class ResourcePool;
+class VarText;
+
 
 typedef boost::archive::binary_iarchive freeorion_bin_iarchive;
 typedef boost::archive::binary_oarchive freeorion_bin_oarchive;
@@ -283,6 +285,24 @@ extern template FO_COMMON_API void serialize<freeorion_bin_oarchive>(freeorion_b
 extern template FO_COMMON_API void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, SpeciesManager&, unsigned int const);
 extern template FO_COMMON_API void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, SpeciesManager&, unsigned int const);
 extern template FO_COMMON_API void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, SpeciesManager&, unsigned int const);
+
+
+template <typename Archive>
+void serialize(Archive&, ResourcePool&, const unsigned int);
+
+extern template FO_COMMON_API void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, ResourcePool&, const unsigned int);
+extern template FO_COMMON_API void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, ResourcePool&, const unsigned int);
+extern template FO_COMMON_API void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, ResourcePool&, const unsigned int);
+extern template FO_COMMON_API void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, ResourcePool&, const unsigned int);
+
+
+template <typename Archive>
+void serialize(Archive&, VarText&, const unsigned int);
+
+extern template FO_COMMON_API void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, VarText&, const unsigned int);
+extern template FO_COMMON_API void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, VarText&, const unsigned int);
+extern template FO_COMMON_API void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, VarText&, const unsigned int);
+extern template FO_COMMON_API void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, VarText&, const unsigned int);
 
 
 #endif

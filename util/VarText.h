@@ -8,9 +8,6 @@
 #include <string>
 #include <vector>
 
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/nvp.hpp>
-
 #include "Export.h"
 
 //! Provides a lazy evaluated template string with named variable tags.
@@ -195,18 +192,10 @@ protected:
     mutable bool m_validated = false;
 
 private:
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, VarText&, unsigned int const);
 };
 
-template <typename Archive>
-void VarText::serialize(Archive& ar, const unsigned int version)
-{
-    ar  & BOOST_SERIALIZATION_NVP(m_template_string)
-        & BOOST_SERIALIZATION_NVP(m_stringtable_lookup_flag)
-        & BOOST_SERIALIZATION_NVP(m_variables);
-}
 
 
 #endif
