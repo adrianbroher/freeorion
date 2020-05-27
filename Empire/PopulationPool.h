@@ -4,7 +4,6 @@
 #include "../util/Export.h"
 
 #include <boost/signals2/signal.hpp>
-#include <boost/serialization/nvp.hpp>
 
 #include <vector>
 
@@ -26,16 +25,10 @@ private:
     std::vector<int>    m_pop_center_ids;       ///< UniverseObject ids of PopCenters that contribute to the pool
     float               m_population = 0.0f;    ///< total population of all PopCenters in pool
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, PopulationPool&, unsigned int const);
 };
 
-template <typename Archive>
-void PopulationPool::serialize(Archive& ar, const unsigned int version)
-{
-    ar  & BOOST_SERIALIZATION_NVP(m_pop_center_ids);
-}
 
 
 #endif

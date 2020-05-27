@@ -43,6 +43,18 @@ template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, Resourc
 
 
 template <typename Archive>
+void serialize(Archive& ar, PopulationPool& poppool, unsigned int const version)
+{
+    ar  & boost::serialization::make_nvp("m_pop_center_ids", poppool.m_pop_center_ids);
+}
+
+template void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, PopulationPool&, const unsigned int);
+template void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, PopulationPool&, const unsigned int);
+template void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, PopulationPool&, const unsigned int);
+template void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, PopulationPool&, const unsigned int);
+
+
+template <typename Archive>
 void ResearchQueue::Element::serialize(Archive& ar, const unsigned int version)
 {
     ar  & BOOST_SERIALIZATION_NVP(name)
