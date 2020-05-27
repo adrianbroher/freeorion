@@ -3,8 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/nvp.hpp>
 #include <boost/uuid/uuid.hpp>
 #include "Export.h"
 #include "../Empire/Empire.h"
@@ -80,9 +78,8 @@ private:
     /** Indicates that Execute() has occured, and so an undo is legal. */
     mutable bool m_executed = false;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, Order&, unsigned int const);
 };
 
 
@@ -108,8 +105,6 @@ public:
     static bool Check(int empire, int object, const std::string& new_name);
 
 private:
-    RenameOrder() = default;
-
     /**
      * Preconditions of execute:
      *    - the designated planet must exist, be owned by the issuing empire
@@ -123,9 +118,8 @@ private:
     int m_object = INVALID_OBJECT_ID;
     std::string m_name;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, RenameOrder&, unsigned int const);
 };
 
 
@@ -156,8 +150,6 @@ public:
 
     static bool Check(int empire, const std::string& fleet_name, const std::vector<int>& ship_ids, bool aggressive);
 private:
-    NewFleetOrder() = default;
-
     /**
      * Preconditions of execute:
      *    None.
@@ -174,9 +166,8 @@ private:
     std::vector<int> m_ship_ids;
     bool m_aggressive = false;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, NewFleetOrder&, unsigned int const);
 };
 
 
@@ -206,8 +197,6 @@ public:
 
     static bool Check(int empire_id, int fleet_id, int dest_fleet_id, bool append = false);
 private:
-    FleetMoveOrder() = default;
-
     /**
      * Preconditions of execute:
      *    - m_fleet is a valid id of a fleet owned by the order-giving empire
@@ -226,9 +215,8 @@ private:
     std::vector<int> m_route;
     bool m_append = false;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, FleetMoveOrder&, unsigned int const);
 };
 
 
@@ -255,8 +243,6 @@ public:
     static bool Check(int empire_id, int dest_fleet_id, const std::vector<int>& ship_ids);
 
 private:
-    FleetTransferOrder() = default;
-
     /**
      *  FleetTransferOrder's preconditions are:
      *    - m_into_fleet must be the ID of a fleet owned by the issuing empire
@@ -271,9 +257,8 @@ private:
     int m_dest_fleet = INVALID_OBJECT_ID;
     std::vector<int> m_add_ships;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, FleetTransferOrder&, unsigned int const);
 };
 
 
@@ -298,8 +283,6 @@ public:
     static bool Check(int empire_id, int ship_id, int planet_id);
 
 private:
-    ColonizeOrder() = default;
-
     /**
      *  Preconditions:
      *     - m_planet must be the ID of an un-owned planet.
@@ -318,9 +301,8 @@ private:
     int m_ship = INVALID_OBJECT_ID;
     int m_planet = INVALID_OBJECT_ID;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ColonizeOrder&, unsigned int const);
 };
 
 
@@ -345,8 +327,6 @@ public:
     static bool Check(int empire_id, int ship_id, int planet_id);
 
 private:
-    InvadeOrder() = default;
-
     /**
      *  Preconditions:
      *     - m_planet must be the ID of a populated planet not owned by the issuing empire
@@ -365,9 +345,8 @@ private:
     int m_ship = INVALID_OBJECT_ID;
     int m_planet = INVALID_OBJECT_ID;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, InvadeOrder&, unsigned int const);
 };
 
 
@@ -392,8 +371,6 @@ public:
     static bool Check(int empire_id, int ship_id, int planet_id);
 
 private:
-    BombardOrder() = default;
-
     /**
      *  Preconditions:
      *     - m_planet must be the ID of a planet
@@ -410,9 +387,8 @@ private:
     int m_ship = INVALID_OBJECT_ID;
     int m_planet = INVALID_OBJECT_ID;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, BombardOrder&, unsigned int const);
 };
 
 
@@ -433,8 +409,6 @@ public:
     static bool Check(int empire_id, int planet_id, const std::string& focus);
 
 private:
-    ChangeFocusOrder() = default;
-
     /**
      * Preconditions of execute:
      *    - the designated planet must exist, be owned by the issuing empire
@@ -447,9 +421,8 @@ private:
     int m_planet = INVALID_OBJECT_ID;
     std::string m_focus = "";
 
-    friend class boost::serialization::access;
     template <class Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ChangeFocusOrder&, unsigned int const);
 };
 
 /////////////////////////////////////////////////////
@@ -471,8 +444,6 @@ public:
     int                 Slot() const        { return m_slot; }
 
 private:
-    PolicyOrder() = default;
-
     void ExecuteImpl() const override;
 
     std::string m_policy_name;
@@ -480,9 +451,8 @@ private:
     int         m_slot = -1;
     bool        m_adopt = false;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, PolicyOrder&, unsigned int const);
 };
 
 
@@ -501,8 +471,6 @@ public:
     std::string Dump() const override;
 
 private:
-    ResearchQueueOrder() = default;
-
     void ExecuteImpl() const override;
 
     std::string m_tech_name;
@@ -515,9 +483,8 @@ private:
     static const int RESUME = 2;
     static const int INVALID_PAUSE_RESUME = -1;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ResearchQueueOrder&, unsigned int const);
 };
 
 
@@ -558,8 +525,6 @@ public:
     std::string Dump() const override;
 
 private:
-    ProductionQueueOrder() = default;
-
     void ExecuteImpl() const override;
 
     ProductionQueue::ProductionItem m_item;
@@ -574,9 +539,8 @@ private:
     static const int INVALID_INDEX = -500;
     static const int INVALID_QUANTITY = -1000;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ProductionQueueOrder&, unsigned int const);
 };
 
 
@@ -649,9 +613,8 @@ private:
     bool m_name_desc_in_stringtable = false;
     // end details of design to create
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ShipDesignOrder&, unsigned int const);
 };
 
 
@@ -672,8 +635,6 @@ public:
 
     static bool Check(int empire_id, int object_id);
 private:
-    ScrapOrder() = default;
-
     /**
      *  Preconditions:
      *     - m_object_id must be the ID of an object owned by issuing empire
@@ -688,9 +649,8 @@ private:
 
     int m_object_id = INVALID_OBJECT_ID;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ScrapOrder&, unsigned int const);
 };
 
 
@@ -716,8 +676,6 @@ public:
     static bool Check(int empire_id, int object_id, bool aggression);
 
 private:
-    AggressiveOrder() = default;
-
     /**
      *  Preconditions:
      *     - m_object_id must be the ID of an object owned by issuing empire
@@ -731,9 +689,8 @@ private:
     int m_object_id = INVALID_OBJECT_ID;
     bool m_aggression = false;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, AggressiveOrder&, unsigned int const);
 };
 
 
@@ -758,8 +715,6 @@ public:
 
     static bool Check(int empire_id, int object_id, int recipient_empire_id);
 private:
-    GiveObjectToEmpireOrder() = default;
-
     /**
      *  Preconditions:
      *     - m_object_id must be the ID of an object owned by issuing empire
@@ -775,9 +730,8 @@ private:
     int m_object_id = INVALID_OBJECT_ID;
     int m_recipient_empire_id = ALL_EMPIRES;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, GiveObjectToEmpireOrder&, unsigned int const);
 };
 
 /////////////////////////////////////////////////////
@@ -795,8 +749,6 @@ public:
     { return m_object_id; }
 
 private:
-    ForgetOrder() = default;
-
     /**
      *  Preconditions:
      *     - m_object_id must be the ID of an object not owned by issuing empire
@@ -808,9 +760,8 @@ private:
 
     int m_object_id = INVALID_OBJECT_ID;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ForgetOrder&, unsigned int const);
 };
 
 
