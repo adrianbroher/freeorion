@@ -8,7 +8,6 @@
 
 #include <string>
 #include <vector>
-#include <boost/serialization/nvp.hpp>
 
 #include "Export.h"
 
@@ -31,9 +30,8 @@ private:
     std::string m_icon;
     std::string m_label;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, SitRepEntry&, unsigned int const);
 };
 
 //! @name SitRepEntry factories
@@ -72,14 +70,6 @@ FO_COMMON_API SitRepEntry CreateSitRep(const std::string& template_string, int t
                                        const std::vector<std::pair<std::string, std::string>>& parameters, const std::string label = "", bool stringtable_lookup = true);
 //! @}
 
-template <typename Archive>
-void SitRepEntry::serialize(Archive& ar, const unsigned int version)
-{
-    ar  & BOOST_SERIALIZATION_BASE_OBJECT_NVP(VarText)
-        & BOOST_SERIALIZATION_NVP(m_turn)
-        & BOOST_SERIALIZATION_NVP(m_icon)
-        & BOOST_SERIALIZATION_NVP(m_label);
-}
 
 
 #endif

@@ -13,6 +13,7 @@
 
 class Meter;
 class PopCenter;
+class SitRepEntry;
 class OrderSet;
 class Universe;
 class UniverseObject;
@@ -285,6 +286,14 @@ extern template FO_COMMON_API void serialize<freeorion_bin_oarchive>(freeorion_b
 extern template FO_COMMON_API void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, SpeciesManager&, unsigned int const);
 extern template FO_COMMON_API void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, SpeciesManager&, unsigned int const);
 extern template FO_COMMON_API void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, SpeciesManager&, unsigned int const);
+
+
+void serialize(Archive&, SitRepEntry&, const unsigned int);
+
+extern template FO_COMMON_API void serialize<freeorion_bin_oarchive>(freeorion_bin_oarchive&, SitRepEntry&, const unsigned int);
+extern template FO_COMMON_API void serialize<freeorion_bin_iarchive>(freeorion_bin_iarchive&, SitRepEntry&, const unsigned int);
+extern template FO_COMMON_API void serialize<freeorion_xml_oarchive>(freeorion_xml_oarchive&, SitRepEntry&, const unsigned int);
+extern template FO_COMMON_API void serialize<freeorion_xml_iarchive>(freeorion_xml_iarchive&, SitRepEntry&, const unsigned int);
 
 
 template <typename Archive>
