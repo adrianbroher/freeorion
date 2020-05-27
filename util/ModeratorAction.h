@@ -4,9 +4,6 @@
 #include "../universe/EnumsFwd.h"
 #include "Export.h"
 
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/nvp.hpp>
-
 #include <map>
 #include <string>
 
@@ -36,9 +33,8 @@ public:
     { return "ModeratorAction"; }
 
 private:
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, ModeratorAction&, unsigned int const);
 };
 
 class FO_COMMON_API DestroyUniverseObject : public ModeratorAction {
@@ -52,9 +48,8 @@ public:
 private:
     int m_object_id = INVALID_OBJECT_ID;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, DestroyUniverseObject&, unsigned int const);
 };
 
 class FO_COMMON_API SetOwner : public ModeratorAction {
@@ -69,9 +64,8 @@ private:
     int m_object_id = INVALID_OBJECT_ID;
     int m_new_owner_empire_id = ALL_EMPIRES;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, SetOwner&, unsigned int const);
 };
 
 class FO_COMMON_API AddStarlane : public ModeratorAction {
@@ -86,9 +80,8 @@ private:
     int m_id_1 = INVALID_OBJECT_ID;
     int m_id_2 = INVALID_OBJECT_ID;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, AddStarlane&, unsigned int const);
 };
 
 class FO_COMMON_API RemoveStarlane : public ModeratorAction {
@@ -103,9 +96,8 @@ private:
     int m_id_1 = INVALID_OBJECT_ID;
     int m_id_2 = INVALID_OBJECT_ID;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, RemoveStarlane&, unsigned int const);
 };
 
 class FO_COMMON_API CreateSystem : public ModeratorAction {
@@ -121,9 +113,8 @@ private:
     double      m_y = 0.0;
     StarType    m_star_type;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, CreateSystem&, unsigned int const);
 };
 
 class FO_COMMON_API CreatePlanet : public ModeratorAction {
@@ -139,9 +130,8 @@ private:
     PlanetType  m_planet_type;
     PlanetSize  m_planet_size;
 
-    friend class boost::serialization::access;
     template <typename Archive>
-    void serialize(Archive& ar, const unsigned int version);
+    friend void serialize(Archive&, CreatePlanet&, unsigned int const);
 };
 
 }
