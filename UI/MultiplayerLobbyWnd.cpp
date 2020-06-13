@@ -13,7 +13,6 @@
 #include "Sound.h"
 
 #include <boost/cast.hpp>
-#include <boost/serialization/vector.hpp>
 
 
 namespace {
